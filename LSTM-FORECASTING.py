@@ -87,36 +87,6 @@ model.compile(optimizer='adam', loss='mse')
 history = model.fit(X_train, y_train, epochs=40, batch_size=32,
                         validation_data=(
                             X_val, y_val), verbose=1, shuffle=False)
-predictions = []
-
-for i in range(0,30):
-    step_pred = model.predict(X_test[i:i+1,:,:]) 
-    print(step_pred.shape)
-    predictions.append(step_pred[0]) 
-current_window  = X_test[-1]
-predictions = np.array(predictions)  # convert to numpy array at the end
-X_test_scaled=scaler.inverse_transform(X_test.reshape(-1,features))
-predictions=scaler.inverse_transform(predictions)
-X_test=X_test_scaled.reshape(X_test.shape[0],window_size,features)
-
-
-real_window1 = X_test[0, :, 0]       
-real_window1=np.append(real_window1,predictions[0,0])
-real_window2 = X_test[30, :, 0]             
-
-plt.figure(figsize=(10, 5))
-
-plt.plot(range(window_size+1), real_window1, label="Real Window 1", color='blue')
-plt.plot(range(window_size, 2*window_size), real_window2, '--', label="Real Window 2", color='green')
-plt.plot(range(window_size, 2*window_size), predictions[:,0], 'ro-', label="Predicted Window 2", markersize=4, linewidth=2)
-
-plt.xlabel("Timestep")
-plt.ylabel("Feature 1 Value")
-plt.title("Predicted vs Real Data")
-plt.legend()
-plt.grid(True)
-plt.tight_layout()
-plt.show()
 real_predictions=[]
 current_window=df1[-30:]
 for i in range(30):  
@@ -139,4 +109,5 @@ plt.legend()
 plt.grid(True)
 plt.tight_layout()
 plt.show()
+
 
