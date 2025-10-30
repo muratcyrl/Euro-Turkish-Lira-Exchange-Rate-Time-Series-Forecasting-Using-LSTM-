@@ -21,7 +21,7 @@ def loadData_windowsliding(data, window_size, step_size=1):
         y.append(next_value)
     return np.array(X), np.array(y)
 
-df1 = pd.read_csv("EUR_TRY Geçmiş Verileri (1).csv")
+df1 = pd.read_csv("EUR-TUR.csv")
 df1["Tarih"] = pd.to_datetime(df1["Tarih"], dayfirst=True, errors="coerce")
 df1 = df1.sort_values(by="Tarih", ascending=True)
 df1 = df1.drop('Tarih', axis=1)
@@ -139,3 +139,4 @@ plt.legend()
 plt.grid(True)
 plt.tight_layout()
 plt.show()
+
